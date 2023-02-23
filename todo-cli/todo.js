@@ -12,7 +12,7 @@ const todoList = () => {
       // of overdue items accordingly.
       let overdued=[];
       const dued = all.filter((item)=>{
-        if(item.completed===false && item.dueDate===yesterday)
+        if( item.dueDate===yesterday)
         overdued.push([item.title,item.dueDate]);
         return item;
     });
@@ -25,7 +25,7 @@ const todoList = () => {
       // of todo items that are due today accordingly.
       let todaydued=[];
       const dued = all.filter((item)=>{
-        if(item.completed===false && item.dueDate===today)
+        if( item.dueDate===today)
         todaydued.push([item.title,'']);
         return item;
     });
@@ -37,7 +37,7 @@ const todoList = () => {
       // of todo items that are due later accordingly.
       let laterdued = [];
       const dued = all.filter((item)=>{
-        if(item.completed===false && item.dueDate===tomorrow)
+        if( item.dueDate===tomorrow)
         laterdued.push([item.title,item.dueDate]);
         return item;
     });
@@ -48,12 +48,13 @@ const todoList = () => {
       // Format the To-Do list here, and return the output string
       // as per the format given above.
       let outputstr ='';
+      let output=[];
       for(i in list){
             outputstr+=list[i][0]+" "+list[i][1]+" \n";
       }
+      output.push(outputstr);
       
-      
-      return outputstr;
+      return output[0];
     }
   
     return {
