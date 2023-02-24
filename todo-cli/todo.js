@@ -32,9 +32,9 @@ const todoList = () => {
         if( item.dueDate===today)
         { 
           if(item.completed===false)
-          todaydued.push(['[ ]',item.title,'']);
+          todaydued.push(['[ ]',item.title]);
           else
-          todaydued.push(['[x]',item.title,'']);
+          todaydued.push(['[x]',item.title]);
           return item;
         }
     });
@@ -63,6 +63,9 @@ const todoList = () => {
       let outputstr ='';
       let output=[];
       for(i in list){
+            if(list[i].length===2)
+            outputstr+=list[i][0]+" "+list[i][1]+'\r';
+            else if(list[i].length===3)
             outputstr+=list[i][0]+" "+list[i][1]+" "+list[i][2]+'\r';
       }
       output.push(outputstr);
