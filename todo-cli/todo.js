@@ -12,9 +12,13 @@ const todoList = () => {
       // of overdue items accordingly.
       let overdued=[];
       const dued = all.filter((item)=>{
-        if( item.dueDate===yesterday)
-        overdued.push([item.title,item.dueDate]);
-        return item;
+        if( item.dueDate===yesterday){
+            if(item.completed===false)
+            overdued.push(['[ ]',item.title,item.dueDate]);
+            else 
+            overdued.push(['[x]',item.title,item.dueDate]);
+            return item;
+        }
     });
     
       return overdued;
@@ -26,8 +30,13 @@ const todoList = () => {
       let todaydued=[];
       const dued = all.filter((item)=>{
         if( item.dueDate===today)
-        todaydued.push([item.title,'']);
-        return item;
+        { 
+          if(item.completed===false)
+          todaydued.push(['[ ]',item.title,'']);
+          else
+          todaydued.push(['[x]',item.title,'']);
+          return item;
+        }
     });
     return todaydued;
     }
@@ -37,9 +46,13 @@ const todoList = () => {
       // of todo items that are due later accordingly.
       let laterdued = [];
       const dued = all.filter((item)=>{
-        if( item.dueDate===tomorrow)
-        laterdued.push([item.title,item.dueDate]);
-        return item;
+        if(item.dueDate===tomorrow){
+          if(item.completed===false)
+              laterdued.push(['[ ]',item.title,item.dueDate]);
+          else 
+              laterdued.push(['[x]',item.title,item.dueDate]);
+          return item;
+        }
     });
     return laterdued;
     }
@@ -50,7 +63,7 @@ const todoList = () => {
       let outputstr ='';
       let output=[];
       for(i in list){
-            outputstr+=list[i][0]+" "+list[i][1]+" \n";
+            outputstr+=list[i][0]+" "+list[i][1]+" "+list[i][2]+'\r';
       }
       output.push(outputstr);
       
