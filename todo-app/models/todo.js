@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     completed: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Todos',
+    modelName: 'Todo',
   });
   return Todos;
 };
