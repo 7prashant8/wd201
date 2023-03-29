@@ -8,12 +8,19 @@ app.use(bodyParser.json());
 
 app.set("view engine","ejs");
 
+
 app.get("/", async (request, response) =>{
   const allTodos = await Todo.getTodos();
+  const count  = await Todo.count({
+    where : {
+      dueDate : new Date().toISOString().split('T')[0]
+    }
+  });
   if(request.accepts("HTML")){
     response.render("index",{
-      allTodos
+      allTodos,count
     });
+    console.log(allTodos[0]);
   }
   else{
     response.json({
