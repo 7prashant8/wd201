@@ -13,16 +13,14 @@ app.set("view engine","ejs");
 
 app.get("/", async (request, response) =>{
   const allTodos = await Todo.getTodos();
-  const count  = await Todo.count({
-    where : {
-      dueDate : new Date().toISOString().split('T')[0]
-    }
-  });
+  const dueToday = await Todo.dueToday();
+  const duelater = await Todo.duelater();
+  const overdue = await Todo.overdue();
   if(request.accepts("HTML")){
     response.render("index",{
-      allTodos,count
+      dueToday,duelater,overdue
     });
-    console.log(allTodos[0]);
+    
   }
   else{
     response.json({

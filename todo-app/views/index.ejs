@@ -8,6 +8,34 @@
   <link rel="stylesheet" href="./css/styles.css" />
   <title>To-do-manager</title>
 </head>
+<script>
+  function updateTodo(id){
+    fetch(`/todos/${id}/markAsCompleted`,{
+      method : 'PUT',
+      headers : {"content-type" : 'application/json'},
+    })
+    .then((res) =>{
+      if(res.ok)
+      window.location.reload;
+    })
+    .catch((error)=> console.log(error)); 
+  }
+
+  function deleteTodo(id){
+    fetch(`/todos/${id}`,{
+      method : 'DELETE',
+      headers : {"content-type" : 'application/json'},
+    })
+    .then((res) =>{
+      if(res.ok){
+        window.location.reload;
+      }
+       
+    })
+    .catch((error)=> console.log(error)); 
+  }
+</script>
+
 <body>
   <div class="grid grid-cols-6">
     <div class="col-start-3 col-span-2">

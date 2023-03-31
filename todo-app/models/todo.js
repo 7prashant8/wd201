@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, Op
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Todos extends Model {
@@ -16,6 +16,36 @@ module.exports = (sequelize, DataTypes) => {
 
     static addTodo({ title, dueDate }) {
       return this.create({ title: title, dueDate: dueDate, completed: false });
+    }
+
+    static async dueToday(){
+      return this.findAll({
+        where:{
+          dueDate:{
+            [Op.eq]: new Date(),
+            },
+          },
+      });
+    }
+
+    static async overdue(){
+      return this.findAll({
+        where:{
+          dueDate:{
+            [Op.lt]: new Date(),
+            },
+          },
+      });
+    }
+
+    static async duelater(){
+      return this.findAll({
+        where:{
+          dueDate:{
+            [Op.gt]: new Date(),
+            },
+          },
+      });
     }
 
     static getTodos(){
