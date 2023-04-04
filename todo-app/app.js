@@ -1,13 +1,16 @@
 /* eslint-disable no-unused-vars */
 const express = require("express");
+var csrf = require('csurf');
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
+var cookieParser = require('cookie-parser');
 const path = require("path");
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}));
-
+app.use(cookieParser('shh! some secret string'));
+app.use(csrf({cookie: true}));
 app.set("view engine","ejs");
 
 
@@ -18,13 +21,14 @@ app.get("/", async (request, response) =>{
   const overdue = await Todo.overdue();
   if(request.accepts("HTML")){
     response.render("index",{
-      dueToday,duelater,overdue
+      dueToday,duelater,overdue,
+      csrfToken : request.csrfToken() 
     });
     
   }
   else{
     response.json({
-      allTodos
+      allTodos,dueToday
     })
   }
   
