@@ -58,10 +58,10 @@ describe("Todo Application", function () {
     const latestTodo = parsedGroupedResponse.dueToday[dueTodayCount - 1];
     res = await agent.get("/");
     csrfToken = extractCsrfToken(res);
-    const markcompleteResponse = await agent.put(`/todos/${latestTodo.id}/markAsCompleted`).send({
+    const completeResponse = await agent.put(`/todos/${latestTodo.id}`).send({
       _csrf : csrfToken,
     });
-    const parseUpdateResponse = JSON.parse(markcompleteResponse.text);
+    const parseUpdateResponse = JSON.parse(completeResponse.text);
     expect(parseUpdateResponse.completed).toBe(true);
   });
 
@@ -86,7 +86,7 @@ describe("Todo Application", function () {
    
     const parsedResponse = JSON.parse(groupedTodosResponse.text);
 
-    expect(parsedResponse.dueToday.length).toBe(4);
+    expect(parsedResponse.dueToday.length).toBe(3);
     expect(parsedResponse.allTodos[3].title).toBe("Buy ps3");
   });
 

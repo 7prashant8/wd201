@@ -15,15 +15,24 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static addTodo({ title, dueDate }) {
-      return this.create({ title: title, dueDate: dueDate, completed: false });
+      if(title != " " && dueDate != "" )
+        return this.create({ title: title, dueDate: dueDate, completed: false });
+      else return
     }
-
+    static async allCompleted(){
+      return this.findAll({
+        where : {
+          completed : true
+        }
+      })
+    }
     static async dueToday(){
       return this.findAll({
         where:{
           dueDate:{
             [Op.eq]: new Date(),
             },
+            completed : false
           },
       });
     }
@@ -34,6 +43,7 @@ module.exports = (sequelize, DataTypes) => {
           dueDate:{
             [Op.lt]: new Date(),
             },
+            completed : false
           },
       });
     }
@@ -44,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
           dueDate:{
             [Op.gt]: new Date(),
             },
+            completed : false
           },
       });
     }
@@ -52,8 +63,9 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll();
     }
 
-    markAsCompleted() {
-      return this.update({ completed: true });
+    setCompletionStatus(complete) {
+      
+      return this.update({ completed : !complete });
     }
 
   }
