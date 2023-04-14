@@ -135,7 +135,7 @@ app.get(
 
 app.get("/signup", (request, response) => {
   console.log("/signup is called");
-  response.render("user", {
+  response.render("signup", {
     failure: false,
     csrfToken: request.csrfToken(),
   });

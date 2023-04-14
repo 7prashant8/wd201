@@ -4,15 +4,15 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     
-    await queryInterface.addColumn('Todo','userId',{
+    await queryInterface.addColumn('Todos','userId',{
       type: Sequelize.DataTypes.INTEGER
     })
 
-    await queryInterface.addConstraint('Todo',{
+    await queryInterface.addConstraint('Todos',{
       fields: ['userId'],
       type: 'foreign key',
       references: {
-        table: 'Users',
+        table: 'users',
         field: 'Id'
       }
     })
@@ -26,7 +26,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     
-    await queryInterface.removeColumn('Todo','userId');
+    await queryInterface.removeColumn('Todos','userId');
     /**
      * Add reverting commands here.
      *
