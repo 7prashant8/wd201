@@ -13,7 +13,7 @@ const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
 const { stringify } = require("querystring");
 const { error } = require("console");
-const { next } = require("cheerio/lib/api/traversing");
+//const { next } = require("cheerio/lib/api/traversing");
 const flash = require("connect-flash");
 
 app.use(bodyParser.json());
@@ -123,6 +123,7 @@ app.get(
         duelater,
         overdue,
         allCompleted,
+        name : request.user.firstname,
         csrfToken: request.csrfToken(),
       });
     } else {
