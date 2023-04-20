@@ -13,7 +13,7 @@ module.exports = {
       type: 'foreign key',
       references: {
         table: 'users',
-        field: 'Id'
+        field: 'id'
       }
     })
     /**

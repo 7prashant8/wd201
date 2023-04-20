@@ -175,7 +175,7 @@ app.post("/users", async (request, response) => {
     });
   } catch (error) {
     console.log("Email already registered!", error);
-    response.render("user", { failure: true, csrfToken: request.csrfToken() });
+    response.render("signup", { failure: true, csrfToken: request.csrfToken() });
   }
 });
 
