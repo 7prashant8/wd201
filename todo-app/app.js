@@ -101,9 +101,15 @@ passport.deserializeUser((id, done) => {
 
 app.get("/", async (request, response) => {
   console.log("/ is called");
-  response.render("index", {
-    csrfToken: request.csrfToken(),
-  });
+  if(request.isAuthenticated()){
+    response.redirect('/todos');
+  }
+  else{
+    response.render("index", {
+      csrfToken: request.csrfToken(),
+    });
+  }
+  
 });
 
 app.get(
@@ -140,12 +146,18 @@ app.get(
 
 // eslint-disable-next-line no-undef
 
-app.get("/signup", (request, response) => {
+app.get("/signup" ,(request, response) => {
   console.log("/signup is called");
-  response.render("signup", {
-    failure: false,
-    csrfToken: request.csrfToken(),
-  });
+  if(request.isAuthenticated()){
+    response.redirect('/todos')
+  }
+  else{
+    response.render("signup", {
+      failure: false,
+      csrfToken: request.csrfToken(),
+    });
+  }
+  
 });
 
 app.post("/users", async (request, response) => {
@@ -188,7 +200,12 @@ app.post("/users", async (request, response) => {
 
 app.get("/login", (request, response) => {
   console.log("/login is called");
-  response.render("login", { title: "LogIn", csrfToken: request.csrfToken() });
+  if(request.isAuthenticated()){
+    response.redirect('/todos');
+  }
+  else{
+    response.render("login", { title: "LogIn", csrfToken: request.csrfToken() });
+  }
 });
 //passport.authenticate('local',{ failureRedirect : '/login',failureFlash : "login Failed"  }),
 app.post(
@@ -283,6 +300,7 @@ app.put(
     }
   }
 );
+
 
 // eslint-disable-next-line no-unused-vars
 app.delete(
